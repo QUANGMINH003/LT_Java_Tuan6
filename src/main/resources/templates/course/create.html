@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content" class="container body-content">
+    <form th:action="@{/course/add}"
+          th:object="${course}" method="post" class="form">
+        <div class="form-group">
+            <label for="place">Place</label>
+            <input type="text" class="form-control" id="place" th:field="*{place}" placeholder="Place">
+            <div th:if="${#fields.hasErrors('place')}" th:errors="*{place}" class="text-danger"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">Start Date:</label>
+            <input type="date" class="form-control" id="startDate" th:field="*{startDate}" placeholder="startDate">
+            <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="teacherName">Lecture</label>
+            <input type="text" class="form-control" id="teacherName" th:field="*{teacherName}" placeholder="TeacherName">
+            <div th:if="${#fields.hasErrors('teacherName')}" th:errors="*{teacherName}" class="text-danger"></div>
+        </div>
+        <input type="submit" class="btn btn-success" value="Add">
+    </form>
+</div>
+</body>
+</html>
+<script>
+    document.querySelector('#startDate').addEventListener('change', function() {
+       const startDate = new Date(this.value);
+       const currentDate = new Date();
+       if (startDate >= currentDate) {
+           this.classList.remove('is-invalid');
+           this.nextElementSibling.textContent = '';
+           // Enable the submit button
+           document.querySelector('input[type="submit"]').disabled = false;
+       } else {
+           this.classList.add('is-invalid');
+           this.nextElementSibling.textContent = 'Ngày tạo phải lớn hơn ngày hiện tại.';
+           // Disable the submit button
+           document.querySelector('input[type="submit"]').disabled = true;
+       }
+   });
+</script>

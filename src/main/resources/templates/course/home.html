@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        .date-box {
+            border: 1px solid #000;
+            padding: 10px;
+            display: inline-block;
+            text-align: center;
+            width: 80px;
+            height: 100px;
+            background-color: #E91E63; /* Màu hồng giống như trong hình */
+            color: white;
+            font-family: Arial, sans-serif;
+            margin-right: 10px;
+            border-radius: 8px;
+        }
+        .date-box .day {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .date-box .month {
+            font-size: 1em;
+        }
+
+        .date-box .year {
+            font-size: 1em;
+        }
+        .course-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content" class="row">
+    <ul th:each="course : ${course}" >
+        <li class="course-item">
+            <div class="date-box">
+                <div class="day" th:text="${#temporals.format(course.startDate, 'd')}"></div>
+                <div class="month" th:text="${#temporals.format(course.startDate, 'MMMM','en')}"></div>
+                <div class="year" th:text="${#temporals.format(course.startDate, 'yyyy')}"></div>
+            </div>
+            <div>
+                <p th:text="${course.teacherName}"></p>
+                <p th:text="${course.place}"></p>
+            </div>
+
+        </li>
+        <a class="btn text-primary"  th:href="@{/course/edit/{id}(id=${course.id})}" >Edit</a>
+        <a class="btn text-primary" th:href="@{/course/delete/{id}(id=${course.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+    </ul>
+
+</div>
+</body>
+</html>

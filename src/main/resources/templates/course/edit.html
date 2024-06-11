@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout"   xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update Product</title>
+</head>
+<body>
+<div layout:fragment="content" class="container body-content">
+    <form th:action="@{/course/update/{id}(id=${course.id})}"
+          th:object="${course}" method="post" class="form">
+        <div class="form-group">
+            <label for="place">Place</label>
+            <input type="text" class="form-control" id="place" th:field="*{place}" placeholder="Place">
+            <div th:if="${#fields.hasErrors('place')}" th:errors="*{place}" class="text-danger"></div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="startDate">Start Date:</label>
+            <input type="date" class="form-control" id="startDate" th:field="*{startDate}" placeholder="startDate">
+            <div th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="teacherName">Lecture</label>
+            <input type="text" class="form-control" id="teacherName" th:field="*{teacherName}" placeholder="TeacherName">
+            <div th:if="${#fields.hasErrors('teacherName')}" th:errors="*{teacherName}" class="text-danger"></div>
+        </div>
+        <input type="submit" class="btn btn-success" value="edit">
+    </form>
+</div>
+</body>
+</html>
